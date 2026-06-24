@@ -3,9 +3,10 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/shrey31-N/car-web.git'
+                git branch: 'main',
+                    url: 'https://github.com/shrey31-N/car-web.git'
             }
         }
 
@@ -16,6 +17,16 @@ pipeline {
                 sudo cp -r * /var/www/html/
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Website deployed successfully'
+        }
+
+        failure {
+            echo 'Deployment failed'
         }
     }
 }
